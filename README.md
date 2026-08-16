@@ -215,9 +215,9 @@ La presentación del proyecto (exposición) está disponible en [`doc/Inventario
 
 ## Autor(es)
 
-Proyecto realizado para el curso de **Base de Datos II (BD2)** — Escuela de Ingeniería de Ciberseguridad, Universidad Nacional de Ingeniería.
+Proyecto realizado para el curso de **Base de Datos II** — Facultad de Ingeniería Eléctrica y Electrónica, Universidad Nacional de Ingeniería.
 
-- **Juan Carlos Matias Gonzales Avendaño** — Áreas y Empleados
+- **Juan Carlos Matías Gonzales Avendaño** — Áreas y Empleados
 - **Alexandro Achalma Galindo** — Equipos (CRUD y filtros)
 - **Carlos Henrry Santana Palomino** — Mantenimiento y Reportes
 - **Antony Jamel Lipa Benito** — Arquitectura y Seguridad
