@@ -1,0 +1,12 @@
+@model Empleado
+@{
+    ViewData["Title"] = "Eliminar empleado";
+}
+
+<h2>Eliminar empleado</h2>
+<p>¿Seguro que deseas eliminar a <strong>@Model.Nombre</strong>?</p>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

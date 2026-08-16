@@ -1,0 +1,57 @@
+@model List<Equipo>
+@{
+    ViewData["Title"] = "Equipos";
+}
+
+<h2>Equipos</h2>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <select name="areaId" class="form-select" asp-items="ViewBag.Areas">
+            <option value="">-- Todas las áreas --</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <select name="estado" class="form-select" asp-items="ViewBag.Estados">
+            <option value="">-- Todos los estados --</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+    </div>
+</form>
+
+<p><a class="btn btn-primary" asp-action="Create">+ Nuevo equipo</a></p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Tipo</th>
+            <th>Marca / Modelo</th>
+            <th>Estado</th>
+            <th>Área</th>
+            <th>Asignado a</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var eq in Model)
+    {
+        <tr>
+            <td>@eq.CodigoInventario</td>
+            <td>@eq.Tipo</td>
+            <td>@eq.Marca @eq.Modelo</td>
+            <td>@eq.Estado</td>
+            <td>@eq.AreaNombre</td>
+            <td>@eq.EmpleadoNombre</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@eq.Id">Ver</a>
+                <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@eq.Id">Editar</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@eq.Id">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

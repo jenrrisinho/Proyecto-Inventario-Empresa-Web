@@ -1,0 +1,81 @@
+@model Equipo
+@{
+    ViewData["Title"] = "Detalle del equipo";
+}
+
+<h2>@Model.CodigoInventario &mdash; @Model.Tipo</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Marca / Modelo</dt>
+    <dd class="col-sm-9">@Model.Marca @Model.Modelo</dd>
+
+    <dt class="col-sm-3">N&deg; de serie</dt>
+    <dd class="col-sm-9">@Model.NumeroSerie</dd>
+
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@Model.Estado</dd>
+
+    <dt class="col-sm-3">Área</dt>
+    <dd class="col-sm-9">@Model.AreaNombre</dd>
+
+    <dt class="col-sm-3">Asignado a</dt>
+    <dd class="col-sm-9">@Model.EmpleadoNombre</dd>
+</dl>
+
+<h4>Especificaciones</h4>
+@if (Model.Especificaciones != null && Model.Especificaciones.Count > 0)
+{
+    <ul>
+    @foreach (var kv in Model.Especificaciones)
+    {
+        <li>@kv.Key: @kv.Value</li>
+    }
+    </ul>
+}
+else
+{
+    <p class="text-muted">Sin especificaciones registradas.</p>
+}
+
+<h4>Historial de mantenimiento</h4>
+@if (Model.HistorialMantenimiento != null && Model.HistorialMantenimiento.Count > 0)
+{
+    <table class="table table-sm">
+        <thead>
+            <tr><th>Fecha</th><th>Tipo</th><th>Técnico</th><th>Costo</th></tr>
+        </thead>
+        <tbody>
+        @foreach (var reg in Model.HistorialMantenimiento)
+        {
+            <tr>
+                <td>@reg.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@reg.TipoMantenimiento</td>
+                <td>@reg.Tecnico</td>
+                <td>S/. @reg.Costo</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Este equipo todavía no tiene registros de mantenimiento.</p>
+}
+
+<h4>Agregar mantenimiento</h4>
+<form asp-action="AgregarMantenimiento" asp-route-id="@Model.Id" method="post" class="row g-2">
+    <div class="col-auto">
+        <input type="text" name="tipoMantenimiento" class="form-control" placeholder="Tipo de mantenimiento" />
+    </div>
+    <div class="col-auto">
+        <input type="text" name="tecnico" class="form-control" placeholder="Técnico" />
+    </div>
+    <div class="col-auto">
+        <input type="number" step="0.01" name="costo" class="form-control" placeholder="Costo" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </div>
+</form>
+
+<p class="mt-3"><a asp-action="Index" class="btn btn-secondary">Volver a la lista</a></p>

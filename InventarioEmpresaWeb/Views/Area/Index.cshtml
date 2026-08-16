@@ -1,0 +1,30 @@
+@model List<Area>
+@{
+    ViewData["Title"] = "Áreas";
+}
+
+<h2>Áreas</h2>
+<p><a class="btn btn-primary" asp-action="Create">+ Nueva área</a></p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Responsable</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var area in Model)
+    {
+        <tr>
+            <td>@area.Nombre</td>
+            <td>@area.Responsable</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@area.Id">Editar</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@area.Id">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

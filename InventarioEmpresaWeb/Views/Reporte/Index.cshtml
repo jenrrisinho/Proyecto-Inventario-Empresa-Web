@@ -1,0 +1,83 @@
+@using MongoDB.Bson
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<h2>Reportes</h2>
+
+<h4>1. Área con empleados y equipos</h4>
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <select name="areaId" class="form-select" asp-items="ViewBag.Areas">
+            <option value="">-- Selecciona un área --</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Ver reporte</button>
+    </div>
+</form>
+
+@{
+    var reporteArea = ViewBag.ReporteArea as List<BsonDocument>;
+}
+@if (reporteArea != null)
+{
+    @foreach (var doc in reporteArea)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@doc.GetValue("nombre", "")</h5>
+                <p class="card-text">Responsable: @doc.GetValue("responsable", "")</p>
+                <p class="card-text"><strong>Empleados:</strong><br />@doc.GetValue("empleados", new BsonArray()).ToJson()</p>
+                <p class="card-text"><strong>Equipos:</strong><br />@doc.GetValue("equipos", new BsonArray()).ToJson()</p>
+            </div>
+        </div>
+    }
+}
+
+<hr />
+
+<h4>2. Conteo de equipos por estado</h4>
+<table class="table table-sm w-auto">
+    <thead><tr><th>Estado</th><th>Cantidad</th></tr></thead>
+    <tbody>
+    @{
+        var reporteEstados = ViewBag.ReporteEstados as List<BsonDocument>;
+    }
+    @if (reporteEstados != null)
+    {
+        @foreach (var doc in reporteEstados)
+        {
+            <tr>
+                <td>@doc.GetValue("_id", "(sin estado)")</td>
+                <td>@doc.GetValue("cantidad", 0)</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+<hr />
+
+<h4>3. Costo de mantenimiento por equipo</h4>
+<table class="table table-sm w-auto">
+    <thead><tr><th>Código</th><th>Cantidad de mantenimientos</th><th>Costo total</th></tr></thead>
+    <tbody>
+    @{
+        var reporteCostos = ViewBag.ReporteCostos as List<BsonDocument>;
+    }
+    @if (reporteCostos != null)
+    {
+        @foreach (var doc in reporteCostos)
+        {
+            var idValor = doc.GetValue("_id", new BsonDocument());
+            var idDoc = idValor.IsBsonDocument ? idValor.AsBsonDocument : new BsonDocument();
+            <tr>
+                <td>@idDoc.GetValue("codigo", "")</td>
+                <td>@doc.GetValue("cantidad_mantenimientos", 0)</td>
+                <td>S/. @doc.GetValue("costo_total", 0)</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

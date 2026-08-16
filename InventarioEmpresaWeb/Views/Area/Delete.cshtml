@@ -1,0 +1,13 @@
+@model Area
+@{
+    ViewData["Title"] = "Eliminar área";
+}
+
+<h2>Eliminar área</h2>
+<p>¿Seguro que deseas eliminar el área <strong>@Model.Nombre</strong>?</p>
+<p class="text-muted">Los empleados y equipos que la referencian quedarán con una referencia inválida.</p>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

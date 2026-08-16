@@ -1,0 +1,59 @@
+@model Equipo
+@{
+    ViewData["Title"] = "Editar equipo";
+}
+
+<h2>Editar equipo</h2>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Código de inventario</label>
+        <input asp-for="CodigoInventario" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tipo</label>
+        <input asp-for="Tipo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Marca</label>
+        <input asp-for="Marca" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Modelo</label>
+        <input asp-for="Modelo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">N&deg; de serie</label>
+        <input asp-for="NumeroSerie" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select asp-for="Estado" class="form-select">
+            <option value="activo">activo</option>
+            <option value="en mantenimiento">en mantenimiento</option>
+            <option value="dado de baja">dado de baja</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Área</label>
+        <select asp-for="AreaId" class="form-select" asp-items="ViewBag.Areas">
+            <option value="">-- Sin área --</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Asignado a</label>
+        <select asp-for="AsignadoA" class="form-select" asp-items="ViewBag.Empleados">
+            <option value="">-- Sin asignar --</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Especificaciones (formato clave=valor, una por l&iacute;nea)</label>
+        <textarea asp-for="EspecificacionesTexto" class="form-control" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
